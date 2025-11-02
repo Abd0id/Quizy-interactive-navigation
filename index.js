@@ -32,6 +32,8 @@ let questions = [
   },
 ];
 
+let i = 0;
+
 prevButton.style.display = "none";
 
 nextButton.addEventListener("click", () => {
