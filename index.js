@@ -80,6 +80,7 @@ function switchQuestion(isNext) {
     myHeader.textContent = "Quiz";
     choices.style.display = "";
     prevButton.style.display = i > 0 ? "" : "none";
+    nextButton.innerHTML = i === questions.length - 1 ? "Finish" : "Next";
     displayQuestion.textContent = questions[i].question;
     switchAnswer();
   } else if (!isNext && i > 0) {
