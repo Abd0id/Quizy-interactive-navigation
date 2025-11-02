@@ -1,6 +1,10 @@
-const nextButton = document.getElementById("nextBtn");
+const myHeader = document.getElementById("head-text");
+
+const displayQuestion = document.getElementById("question");
+const choices = document.getElementById("choices");
+
 const prevButton = document.getElementById("prevBtn");
-const myChoices = document.getElementById("choices");
+const nextButton = document.getElementById("nextBtn");
 
 let questions = [
   {
@@ -8,32 +12,28 @@ let questions = [
   },
   {
     question: "Why did the chicken cross the road?",
-    answer: "beqauuuuse",
+    answer: ["beqauuuuse", "nice try", "never"],
   },
   {
     question: "what are you doing bro?",
-    answer: "idk",
+    answer: ["what", "idk", "import"],
   },
   {
     question: "why did you redeem it?",
-    answer: "nooooooo",
+    answer: ["nooooooo", "soooo", "nested stuff"],
   },
   {
     question: "what's 9 + 10?",
-    answer: "21?",
+    answer: ["19", "910", "21"],
   },
   {
     question: "do you still have time?",
-    answer: "NaN",
+    answer: ["NaN", "null", "undefined"],
   },
 ];
 
-let myQuestion = questions[0].question;
-let myAnswer = questions[0].answer;
+prevButton.style.display = "none";
 
-console.log(myQuestion);
-console.log(myAnswer);
-welcomeScreen();
 nextButton.addEventListener("click", () => {
   switchQuestion(true);
 });
@@ -42,23 +42,22 @@ prevButton.addEventListener("click", () => {
   switchQuestion(false);
 });
 
-prevButton.style.display = "none";
-
 function welcomeScreen() {
   document.getElementById("head-text").textContent = "Welcome";
-  myChoices.style.display = "none";
+  choices.style.display = "none";
   prevButton.style.display = "none";
   i = 0;
 }
+welcomeScreen();
 
 function switchQuestion(isNext) {
   if (isNext && i <= 5) {
-    i++;
-    document.getElementById("question").textContent = questions[i].question;
-    document.getElementById("head-text").textContent = "Quiz";
-    myChoices.style.display = "";
+    myHeader.textContent = "Quiz";
+    choices.style.display = "";
 
     prevButton.style.display = "";
+    i++;
+    displayQuestion.textContent = questions[i].question;
   } else if (!isNext) {
     --i;
     document.getElementById("question").textContent = questions[i].question;
@@ -66,5 +65,25 @@ function switchQuestion(isNext) {
       welcomeScreen();
     }
   }
-  console.log(i);
+  switchAnswer();
+}
+function switchAnswer() {
+  choices.innerHTML = "";
+  for (let index = 0; index < 3; index++) {
+    let template = `            
+      <div>
+        <input
+          type="radio"
+          class="btn-check"
+          name="choice"
+          id="${index}"
+          value=""
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-success" for="${index}">
+          ${questions[i].answer[index]}
+        </label>
+      </div>`;
+    choices.innerHTML += template;
+  }
 }
