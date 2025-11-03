@@ -12,26 +12,31 @@ let questions = [
     question: "Why did the chicken cross the road?",
     answer: ["beqauuuuse", "nice try", "never"],
     correct: 0,
+    answered: 0,
   },
   {
     question: "what are you doing bro?",
     answer: ["what", "idk", "import"],
     correct: 1,
+    answered: 0,
   },
   {
     question: "why did you redeem it?",
     answer: ["nooooooo", "soooo", "nested stuff"],
     correct: 0,
+    answered: 0,
   },
   {
     question: "what's 9 + 10?",
     answer: ["19", "910", "21"],
     correct: 2,
+    answered: 0,
   },
   {
     question: "do you still have time?",
     answer: ["NaN", "null", "defined"],
     correct: 2,
+    answered: 0,
   },
 ];
 
@@ -118,7 +123,8 @@ function checkAnswer() {
   let selected = document.querySelector('input[name="choice"]:checked');
   if (!selected) return;
   let answerIndex = parseInt(selected.value);
-  if (answerIndex === questions[i].correct) {
+  if (answerIndex === questions[i].correct && questions[i].answered === 0) {
+    questions[i].answered = 1;
     score++;
   }
 }
